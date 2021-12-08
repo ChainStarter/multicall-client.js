@@ -1,20 +1,29 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
+let multicall, MuticallArtifact;
+
 const deployMulticall =async () => {
-  const Multicall = await ethers.getContractFactory("Multicall");
-  const multicall = await Multicall.deploy();
+  const MulticallContract = await ethers.getContractFactory("Multicall");
+  const multicall = await MulticallContract.deploy();
+  MuticallArtifact = await hre.artifacts.readArtifact("Multicall")
   await multicall.deployed();
   return multicall
 }
 
+
+
 describe("multicall", function () {
-  let muticallContract;
+
   before(async function() {
-    muticallContract = await deployMulticall()
+    multicall = await deployMulticall()
   });
 
-  it("call", async function () {
-    console.log(muticallContract)
+  it("test call", async function () {
+    const address = multicall.address
+    const abi = MuticallArtifact.abi
+
+    console.log(address, abi)
+
   });
 });
