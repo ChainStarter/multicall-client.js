@@ -1,5 +1,18 @@
 import {multicallConfig} from "./const";
+const EthContract = require('web3-eth-contract');
 
+/**
+ * @type {{address_chainId: Contract}}
+ */
+export const contractStore = {}
+
+/**
+ * @param abi
+ * @param address
+ * @param chainId
+ * @returns {{address, chainId: number, abi}}
+ * @constructor
+ */
 export function Contract(abi, address, chainId = multicallConfig.defaultChainId){
   const abi_ = abi.reduce((_, item) => {
     if (item.type === 'function') {
@@ -7,6 +20,10 @@ export function Contract(abi, address, chainId = multicallConfig.defaultChainId)
     }
     return _
   }, {})
+  const key = `${address}_${chainId}`
+  if (!contractStore[key]){
+    contractStore[key] = new EthContract(abi, address)
+  }
   const contract = {
     abi,
     address,
@@ -24,7 +41,8 @@ export function Contract(abi, address, chainId = multicallConfig.defaultChainId)
       method,
       params,
       address: contract.address,
-      chainId
+      chainId,
+      outputs: abi_[method].outputs
     }
   }
   return new Proxy(contract, {

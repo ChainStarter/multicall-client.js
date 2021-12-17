@@ -1,8 +1,9 @@
-import {config} from "./const";
+import {config, ChainId} from "./const";
 import {Contract} from './contract'
 import {multicallClient} from './call'
 export {
   config,
   Contract,
-  multicallClient
+  multicallClient,
+  ChainId
 }
