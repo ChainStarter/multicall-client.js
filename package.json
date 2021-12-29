@@ -1,7 +1,7 @@
 {
-  "name": "multicall-client",
+  "name": "@chainstarter/multicall-client.js",
   "version": "1.0.0",
-  "description": "multicall-client",
+  "description": "multicall-client.js",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
