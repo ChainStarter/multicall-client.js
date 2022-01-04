@@ -7,7 +7,7 @@ export const ChainId = {
 }
 
 export const multicallConfig = {
-  defaultChainId: window.ethereum ? ~~window.ethereum.chainId : ChainId.ETH,
+  defaultChainId: ChainId.ETH,
   delay: 100,
   timeout: 20000,
   maxCalls: 500,
