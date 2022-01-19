@@ -2,8 +2,9 @@
 
 ## config
 ```javascript
-import {config} from "multicall-client";
-config(
+import {config, ChainId} from "@chainstarter/multicall-client.js";
+ChainId.rinkeby = 4
+const multicallConfig = config(
   {
     defaultChainId: 1,
     delay: 100,//debounce
@@ -14,6 +15,10 @@ config(
       [ChainId.ETH]: {
         url: '',// rpc url
         address: '',//multicall2 address
+      },
+      [ChainId.rinkeby]: {
+        url: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
+        address: '0x5ba1e12693dc8f9c48aad8770482f4739beed696'
       }
     }
   }
@@ -21,7 +26,7 @@ config(
 ```
 ## send calls
 ```javascript
-import {Contract, multicallClient} from "multicall-client";
+import {Contract, multicallClient} from "@chainstarter/multicall-client.js";
 
 const contractBSC = new Contract(abi, address, ChainId.BSC);
 const contractHECO = new Contract(abi, address, ChainId.HECO);
@@ -33,7 +38,7 @@ const calls = [
         contractETH.balanceOf(account)
       ]
 multicallClient(calls).then(result => {
-	// allowFailure=true
+	// allowFailure = true
 	// result type = [[success, call1result], [success, call2result], [success, call3result]]
 	// allowFailure = false
 	// result type = [call1result, call2result, call3result]
@@ -41,7 +46,7 @@ multicallClient(calls).then(result => {
 ```
 ## multicall contract callData
 ```javascript
-import {multicallClient} from "multicall-client";
+import {multicallClient} from "@chainstarter/multicall-client.js";
 
 multicallClient.getBlockInfo(ChainId.ETH).then(blockInfo =>{
   // blockInfo: {number, difficulty, gasLimit, Timestamp, hash}
