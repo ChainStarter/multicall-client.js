@@ -195,8 +195,8 @@ multicallClient.getBlockInfo = async function (chainId) {
     contract.getLastBlockHash()
   ]
   const result = await multicallClient(calls)
-  const [number, difficulty, gasLimit, Timestamp, hash] = result
-  return {number, difficulty, gasLimit, Timestamp, hash}
+  const [number, coinbase, difficulty, gasLimit, Timestamp, hash] = result
+  return {number,coinbase, difficulty, gasLimit, Timestamp, hash}
 }
 
 /**

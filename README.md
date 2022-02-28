@@ -49,7 +49,7 @@ multicallClient(calls).then(result => {
 import {multicallClient} from "@chainstarter/multicall-client.js";
 
 multicallClient.getBlockInfo(ChainId.ETH).then(blockInfo =>{
-  // blockInfo: {number, difficulty, gasLimit, Timestamp, hash}
+  // blockInfo: {number, coinbase, difficulty, gasLimit, Timestamp, hash}
 })
 
 multicallClient.getEthBalance(account, ChainId.ETH).then(ethBalance =>{
