@@ -1,6 +1,6 @@
 {
   "name": "@chainstarter/multicall-client.js",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "multicall-client.js",
   "main": "build/index.js",
   "scripts": {
