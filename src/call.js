@@ -69,7 +69,7 @@ async function request(calls) {
       contract.methods[call.method](...call.params).encodeABI()
     ]
   })
-  const aggregate = multicallConfig.allowFailure ? 'blockAndAggregate' : 'aggregate'
+  const aggregate = multicallConfig.allowFailure ? 'tryBlockAndAggregate' : 'aggregate'
   const response = await new Promise((async (resolve) => {
     let result;
     const timeout = setTimeout(() => {
@@ -78,11 +78,13 @@ async function request(calls) {
         throw new Error(`Request timed out ${multicallConfig.timeout}ms`)
       }
     }, multicallConfig.timeout)
-    multicall.methods[aggregate](callRequests).call().then(result_ => {
+    const params = multicallConfig.allowFailure ? [false, callRequests] : [callRequests]
+    multicall.methods[aggregate](...params).call().then(result_ => {
       result = result_
       clearTimeout(timeout)
       resolve(result)
     }).catch((e) => {
+      console.log(e)
       clearTimeout(timeout)
       resolve({returnData: []})
       throw e
@@ -91,7 +93,7 @@ async function request(calls) {
   for (let i = 0; i < queryCalls.length; i++) {
     let result
     if (multicallConfig.allowFailure) {
-      if (!response.returnData[i]) {
+      if (!response.returnData[i] || !response.returnData[i][0]) {
         result = [false, null]
         result.success = false
         result.returnData = null
