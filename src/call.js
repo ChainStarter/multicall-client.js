@@ -75,7 +75,7 @@ async function request(calls) {
     const timeout = setTimeout(() => {
       if (!result) {
         resolve({returnData: []})
-        throw new Error(`Request timed out ${multicallConfig.timeout}ms`)
+        // throw new Error(`Request timed out ${multicallConfig.timeout}ms`)
       }
     }, multicallConfig.timeout)
     const params = multicallConfig.allowFailure ? [false, callRequests] : [callRequests]
@@ -84,11 +84,10 @@ async function request(calls) {
       clearTimeout(timeout)
       resolve(result)
     }).catch((e) => {
-      console.log(e)
       clearTimeout(timeout)
       resolve({returnData: []})
-      throw e
     })
+
   }))
   for (let i = 0; i < queryCalls.length; i++) {
     let result
@@ -98,19 +97,33 @@ async function request(calls) {
         result.success = false
         result.returnData = null
       } else {
-        const result_ = objectToArray(web3.eth.abi.decodeParameters(queryCalls[i].outputs, response.returnData[i].returnData))
-        result = [
-          response.returnData[i].success,
-          result_
-        ]
-        result.success = response.returnData[i].success
-        result.returnData = result_
+        let result_ = null
+        try {
+          result_ = objectToArray(web3.eth.abi.decodeParameters(queryCalls[i].outputs, response.returnData[i].returnData))
+          result = [
+            response.returnData[i].success,
+            result_
+          ]
+          result.success = response.returnData[i].success
+          result.returnData = result_
+        } catch (e) {
+          result = [
+            false,
+            null
+          ]
+          result.success = false
+          result.returnData = null
+        }
       }
     } else {
       if (!response.returnData[i]) {
         result = null
       } else {
-        result = objectToArray(web3.eth.abi.decodeParameters(queryCalls[i].outputs, response.returnData[i]))
+        try {
+          result = objectToArray(web3.eth.abi.decodeParameters(queryCalls[i].outputs, response.returnData[i]))
+        } catch (e) {
+          result = null
+        }
       }
     }
     queryCalls[i].result = result
@@ -198,7 +211,7 @@ multicallClient.getBlockInfo = async function (chainId) {
   ]
   const result = await multicallClient(calls)
   const [number, coinbase, difficulty, gasLimit, Timestamp, hash] = result
-  return {number,coinbase, difficulty, gasLimit, Timestamp, hash}
+  return {number, coinbase, difficulty, gasLimit, Timestamp, hash}
 }
 
 /**
