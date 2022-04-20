@@ -51,3 +51,13 @@ export function Contract(abi, address, chainId = multicallConfig.defaultChainId)
     },
   })
 }
+/**
+ * @param abi
+ * @param address
+ * @param chainId
+ * @returns {{address, chainId: number, abi}}
+ * @constructor
+ */
+export function newContract(abi, address, chainId = multicallConfig.defaultChainId){
+  return new Contract(abi, address, chainId)
+}

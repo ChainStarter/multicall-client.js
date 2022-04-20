@@ -38,3 +38,4 @@ export function config(configData: Config): Config;
 export class Contract{
   constructor(abi: Array<Object>, address: string, chainId?: number)
 }
+export function newContract(abi: Array<Object>, address: string, chainId?: number): any;

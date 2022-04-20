@@ -29,6 +29,9 @@ const multicallConfig = config(
 import {Contract, multicallClient} from "@chainstarter/multicall-client.js";
 
 const contractBSC = new Contract(abi, address, ChainId.BSC);
+// typescript:
+// const contractBSC: any = new Contract(abi, address, ChainId.BSC);
+// const contractBSC = newContract(abi, address, ChainId.BSC);
 const contractHECO = new Contract(abi, address, ChainId.HECO);
 const contractETH = new Contract(abi, address, ChainId.ETH);
 
