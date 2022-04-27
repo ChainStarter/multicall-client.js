@@ -13,7 +13,7 @@ const multicallConfig = config(
     allowFailure: true,//The result structure is different
     rpc: {
       [ChainId.ETH]: {
-        url: '',// rpc url
+        url: '',// rpc url (https|wss)
         address: '',//multicall2 address
       },
       [ChainId.rinkeby]: {

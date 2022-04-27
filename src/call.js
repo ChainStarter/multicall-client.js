@@ -60,7 +60,7 @@ async function request(calls) {
   if (!rpc) {
     throw new Error(`multicall-client unsupported chainId(${firstCall.chainId}). Please read the documentation to configure rpc`)
   }
-  var web3 = new Web3(new Web3.providers.HttpProvider(rpc.url));
+  var web3 = new Web3(rpc.url);
   const multicall = new web3.eth.Contract(Multicall2Abi, rpc.address)
   const callRequests = queryCalls.map(call => {
     const contract = contractStore[`${call.address}_${call.chainId}`]
