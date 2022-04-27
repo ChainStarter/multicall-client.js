@@ -5,7 +5,7 @@ const EthContract = require('web3-eth-contract');
  * @type {{address_chainId: Contract}}
  */
 export const contractStore = {}
-
+const abiStore = {}
 /**
  * @param abi
  * @param address
@@ -21,9 +21,22 @@ export function Contract(abi, address, chainId = multicallConfig.defaultChainId)
     return _
   }, {})
   const key = `${address}_${chainId}`
-  if (!contractStore[key]){
-    contractStore[key] = new EthContract(abi, address)
+  if (!abiStore[key]){
+    abiStore[key] = abi
+  } else {
+    const newAbi_ = [...abiStore[key], ...abi]
+    const newAbi = []
+    const filterMap = {}
+    for (let i = 0; i < newAbi_.length; i++) {
+      const jsonStr = JSON.stringify(newAbi_[i])
+      if (!filterMap[jsonStr]){
+        newAbi.push(newAbi_[i])
+      }
+      filterMap[jsonStr] = true
+    }
+    abiStore[key] = newAbi
   }
+  contractStore[key] = new EthContract(abiStore[key], address)
   const contract = {
     abi,
     address,
