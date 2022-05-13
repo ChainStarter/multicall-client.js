@@ -3,7 +3,8 @@ export const ChainId = {
   ETH: 1,
   BSC: 56,
   HECO: 128,
-  MATIC: 137
+  MATIC: 137,
+  OKEX: 66
 }
 
 export const multicallConfig = {
@@ -18,16 +19,20 @@ export const multicallConfig = {
       address: '0x5ba1e12693dc8f9c48aad8770482f4739beed696',
     },
     [ChainId.BSC]: {
-      url: 'https://bsc-dataseed.binance.org/',
+      url: 'https://bsc-dataseed.binance.org',
       address: '0x6427169aB7344F9C37E9dC9001c681BEcd09343d',
     },
     [ChainId.HECO]: {
-      url: 'https://http-mainnet-node.huobichain.com',
+      url: 'https://http-mainnet-node.hecochain.com',
       address: '0xBF4b1bE1F00F5624ba4D65f8548ccF6E75d0deFe',
     },
     [ChainId.MATIC]: {
-      url: 'https://polygon-rpc.com/',
+      url: 'https://polygon-rpc.com',
       address: '0x6427169aB7344F9C37E9dC9001c681BEcd09343d',
+    },
+    [ChainId.OKEX]: {
+      url: 'https://exchainrpc.okex.org',
+      address: '0x86267f0116c923cbb2f3460c2b421562b6189f5d'
     }
   }
 }

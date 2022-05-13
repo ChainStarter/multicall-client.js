@@ -24,7 +24,7 @@ const multicallConfig = config(
   }
 )
 ```
-## send calls
+## query calls
 ```javascript
 import {Contract, multicallClient} from "@chainstarter/multicall-client.js";
 
@@ -62,4 +62,33 @@ multicallClient.getEthBalance(account, ChainId.ETH).then(ethBalance =>{
 multicallClient.getBlockHash(135484, ChainId.ETH).then(blockHash =>{
   
 })
+```
+
+## send tx
+```javascript
+import {ClientContract, multicallClientSend} from "@chainstarter/multicall-client.js";
+
+/**
+ import {useWeb3React} from "@web3-react/core";
+ const {library} = useWeb3React()
+ const provider = library.provider
+ */
+const provider = window.ethereum
+
+const contractETH = new Contract(abi, address, ChainId.ETH);
+multicallClientSend([
+  contract.getRewardA(account),
+  contract.getRewardB(account),
+  contract.getRewardA(account2),
+  contract.getRewardB(account3)
+], provider).send({
+  from: '',
+  //...
+}).on('transactionHash', (hash) => {
+ 
+}).on('receipt', (rec) => {
+    
+}).on('error', (err) => {
+    
+  })
 ```

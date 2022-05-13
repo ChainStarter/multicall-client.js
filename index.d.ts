@@ -17,7 +17,8 @@ export declare enum ChainId {
   ETM3Test = 37,
   ETH = 1,
   HECO = 128,
-  MATIC = 137
+  MATIC = 137,
+  OKEX = 66
 }
 interface rpcMap {
   [key: string]: Rpc
@@ -25,12 +26,12 @@ interface rpcMap {
 
 
 export interface Config {
-  defaultChainId: number,
-  delay: number,
-  timeout: number,
-  maxCalls: number,
-  allowFailure: boolean,
-  rpc: rpcMap
+  defaultChainId?: number,
+  delay?: number,
+  timeout?: number,
+  maxCalls?: number,
+  allowFailure?: boolean,
+  rpc?: rpcMap
 }
 
 export function config(configData: Config): Config;
@@ -39,3 +40,5 @@ export class Contract{
   constructor(abi: Array<Object>, address: string, chainId?: number)
 }
 export function newContract(abi: Array<Object>, address: string, chainId?: number): any;
+
+export function multicallClientSend(call: Array<Function>, provider: any) : any;
