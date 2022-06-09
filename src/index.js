@@ -1,6 +1,6 @@
 import {config, ChainId} from "./const";
 import {Contract, newContract} from './contract'
-import {multicallClient, } from './call'
+import {multicallClient, getWeb3} from './call'
 import {multicallClientSend} from './send'
 export {
   config,
@@ -8,5 +8,6 @@ export {
   multicallClient,
   ChainId,
   newContract,
-  multicallClientSend
+  multicallClientSend,
+  getWeb3
 }

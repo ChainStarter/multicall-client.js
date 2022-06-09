@@ -9,7 +9,7 @@ export const getContract = (provider, abi, address) => {
   return new web3.eth.Contract(abi, address)
 }
 
-export async function multicallClientSend(calls, provider){
+export function multicallClientSend(calls, provider){
   const firstCall = calls[0]
   const multicallAddress = multicallConfig.rpc[firstCall.chainId].address
   const multicall = getContract(provider, Multicall2Abi, multicallAddress)

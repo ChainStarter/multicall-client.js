@@ -1,6 +1,6 @@
 # multicall-client.js
 
-## config
+## config [v1.0.0]
 ```javascript
 import {config, ChainId} from "@chainstarter/multicall-client.js";
 ChainId.rinkeby = 4
@@ -24,7 +24,7 @@ const multicallConfig = config(
   }
 )
 ```
-## query calls
+## query calls [v1.0.0]
 ```javascript
 import {Contract, multicallClient} from "@chainstarter/multicall-client.js";
 
@@ -47,26 +47,36 @@ multicallClient(calls).then(result => {
 	// result type = [call1result, call2result, call3result]
 })
 ```
-## multicall contract callData
+## getBlockInfo [v1.0.0]
 ```javascript
 import {multicallClient} from "@chainstarter/multicall-client.js";
 
 multicallClient.getBlockInfo(ChainId.ETH).then(blockInfo =>{
   // blockInfo: {number, coinbase, difficulty, gasLimit, Timestamp, hash}
 })
+```
+
+## getEthBalance [v1.0.0]
+```javascript
+import {multicallClient} from "@chainstarter/multicall-client.js";
 
 multicallClient.getEthBalance(account, ChainId.ETH).then(ethBalance =>{
   
 })
+```
+
+## getBlockHash [v1.0.0]
+```javascript
+import {multicallClient} from "@chainstarter/multicall-client.js";
 
 multicallClient.getBlockHash(135484, ChainId.ETH).then(blockHash =>{
   
 })
 ```
 
-## send tx
+## send transaction [v1.3.1]
 ```javascript
-import {ClientContract, multicallClientSend} from "@chainstarter/multicall-client.js";
+import {Contract, multicallClientSend} from "@chainstarter/multicall-client.js";
 
 /**
  import {useWeb3React} from "@web3-react/core";
@@ -91,4 +101,24 @@ multicallClientSend([
 }).on('error', (err) => {
     
   })
+```
+## getTransactionReceipt [v1.3.2]
+```javascript
+import {multicallClient} from "@chainstarter/multicall-client.js";
+
+    multicallClient.getTransactionReceipt(transactionHash, ChainId.BSC).then(res => {
+      
+    }).catch(()=>{
+      
+    })
+```
+## getWeb3 [v1.3.2]
+```javascript
+import {getWeb3} from "@chainstarter/multicall-client.js";
+const web3 = getWeb3(ChainId.BSC)
+var contract = new web3.eth.Contract(contractABI, adderss);
+//get event
+contract.getPastEvents('EventA', {filter: {}, fromBlock: 10000, toBlock: 'latest'}).then((res) => {
+  console.log(res)
+})
 ```

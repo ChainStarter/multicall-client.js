@@ -1,3 +1,4 @@
+import Web3 from "web3";
 
 export function multicallClient(call: Array<Function>): Promise<any[]>;
 
@@ -42,3 +43,4 @@ export class Contract{
 export function newContract(abi: Array<Object>, address: string, chainId?: number): any;
 
 export function multicallClientSend(call: Array<Function>, provider: any) : any;
+export function getWeb3(chainId?: number) : Web3;

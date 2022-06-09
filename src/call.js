@@ -53,6 +53,18 @@ function objectToArray(obj) {
   return arr
 }
 
+/**
+ *
+ * @param chainId
+ * @returns {Web3}
+ */
+export function getWeb3(chainId) {
+  const rpc = multicallConfig.rpc[chainId || multicallConfig.defaultChainId]
+  if (!rpc) {
+    throw new Error(`multicall-client unsupported chainId(${chainId}). Please read the documentation to configure rpc`)
+  }
+  return new Web3(rpc.url)
+}
 async function request(calls) {
   const queryCalls = calls
   const firstCall = calls[0]
@@ -242,4 +254,22 @@ multicallClient.getBlockHash = async function (blockNumber, chainId) {
   const result = await multicallClient(calls)
   const [hash] = result
   return hash
+}
+/**
+ *
+ * @param transactionHash
+ * @param chainId
+ * @returns {Promise<>}
+ */
+multicallClient.getTransactionReceipt = async function (transactionHash, chainId) {
+  const web3 = getWeb3(chainId)
+  return new Promise(((resolve, reject) => {
+    web3.eth.getTransactionReceipt(transactionHash, function (err, result) {
+      if (err){
+        reject(err)
+      } else {
+        resolve(result)
+      }
+    })
+  }))
 }
