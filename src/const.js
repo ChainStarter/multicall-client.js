@@ -4,7 +4,14 @@ export const ChainId = {
   BSC: 56,
   HECO: 128,
   MATIC: 137,
-  OKEX: 66
+  OKEX: 66,
+  MAINNET : 1,
+  ROPSTEN : 3,
+  RINKEBY : 4,
+  GÖRLI : 5,
+  KOVAN : 42,
+  ETM3 : 36,
+  ETM3Test : 37,
 }
 
 export const multicallConfig = {
