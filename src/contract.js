@@ -17,6 +17,11 @@ export function Contract(abi, address, chainId = multicallConfig.defaultChainId)
   const abi_ = abi.reduce((_, item) => {
     if (item.type === 'function') {
       _[item.name] = item
+      const inputs = item.inputs.reduce((l,i)=>{
+        l.push(i.type)
+        return l
+      },[])
+      _[`${item.name}(${inputs.join(',')})`] = item
     }
     return _
   }, {})

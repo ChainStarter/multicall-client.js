@@ -122,3 +122,100 @@ contract.getPastEvents('EventA', {filter: {}, fromBlock: 10000, toBlock: 'latest
   console.log(res)
 })
 ```
+## support overloaded [v1.4.0]
+Contract
+```solidity
+contract A {
+    function f() public pure returns (uint8 out) {
+        out = 1;
+    }
+
+    function f(uint256 n) public pure returns (uint256 out) {
+        out = n;
+    }
+    function f(uint256 n, address addr) public pure returns (uint256 out) {
+        if(addr == address(0)){
+            out = 0;
+        } else{
+            out =  n;
+        }
+
+    }
+}
+```
+ABI
+```json
+[
+	{
+		"inputs": [],
+		"name": "f",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "out",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "n",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "f",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "out",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "n",
+				"type": "uint256"
+			}
+		],
+		"name": "f",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "out",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	}
+]
+```
+```javascript
+import {Contract, multicallClient} from "@chainstarter/multicall-client.js";
+
+const contractETH = new Contract(abi, address, ChainId.ETH);
+
+const calls = [
+  contractETH.f(),// default overloaded last = f(uint256,address)
+  contractETH["f()"](),
+  contractETH["f(uint256)"](1),
+  contractETH["f(uint256,address)"](1,0x0000000000000000000000000000000000000000),
+      ]
+multicallClient(calls).then(result => {
+	//...
+})
+```
