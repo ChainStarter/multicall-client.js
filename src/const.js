@@ -40,7 +40,11 @@ export const multicallConfig = {
     [ChainId.OKEX]: {
       url: 'https://exchainrpc.okex.org',
       address: '0x86267f0116c923cbb2f3460c2b421562b6189f5d'
-    }
+    },
+    [ChainId.RINKEBY]: {
+      url: "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+      address: "0x5ba1e12693dc8f9c48aad8770482f4739beed696",
+    },
   }
 }
 
