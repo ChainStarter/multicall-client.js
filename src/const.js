@@ -8,7 +8,7 @@ export const ChainId = {
   MAINNET : 1,
   ROPSTEN : 3,
   RINKEBY : 4,
-  GÖRLI : 5,
+  GOERLI: 5,
   KOVAN : 42,
   ETM3 : 36,
   ETM3Test : 37,
@@ -45,6 +45,10 @@ export const multicallConfig = {
       url: "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
       address: "0x5ba1e12693dc8f9c48aad8770482f4739beed696",
     },
+    [ChainId.GOERLI]: {
+      url: 'https://goerli.infura.io/v3/24eed2d69d2b4dcba4339f5a81908cb8',
+      address: '0x740a1313c9e6dbb043ff3a12c42dfacb3d6ec188'
+    }
   }
 }
 

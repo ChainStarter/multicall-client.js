@@ -1,8 +1,8 @@
 {
   "name": "@chainstarter/multicall-client.js",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "multicall-client.js",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
